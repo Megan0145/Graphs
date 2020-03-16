@@ -21,14 +21,14 @@ class Graph:
         Add a directed edge to the graph.
         """
         # firstly check that the vertices being passed in exist in the vertices dictionary
-        if v1 not in vertices or v2 not in vertices:
+        if v1 not in self.vertices or v2 not in self.vertices:
             # raise error if so
             raise IndexError("One or both vertices do not exist")
         # else add the edge: add v2 to the v1 set in vertices
         else:
             self.vertices[v1].add(v2)
             # add v1 to the v2 set in vertices in order to make the edge bidirectional
-            self.vertices[v2].add(v1)
+            # self.vertices[v2].add(v1)
 
     def get_neighbors(self, vertex_id):
         """
@@ -43,13 +43,13 @@ class Graph:
         beginning from starting_vertex.
         """
         # firstly instantiate a Queue
-        q = Queue      
+        q = Queue()      
         # add the starting_vertex to the queue
         q.enqueue(starting_vertex)
         # instantiate empty set to hold visited vertices
         visited = set ()
         # while the length of the queue is more than zero
-        while q.size > 0:
+        while q.size() > 0:
             # set vert equal to the first item in the queue
             vert = q.dequeue()
             # check if the vertex has been visited before
@@ -61,7 +61,6 @@ class Graph:
                 for child_vert in self.vertices[vert]:
                     # add the child vertex to the queue
                     q.enqueue(child_vert)
-
 
     def dft(self, starting_vertex):
         """
