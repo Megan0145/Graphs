@@ -20,7 +20,15 @@ class Graph:
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        # firstly check that the vertices being passed in exist in the vertices dictionary
+        if v1 not in vertices or v2 not in vertices:
+            # raise error if so
+            raise IndexError("One or both vertices do not exist")
+        # else add the edge: add v2 to the v1 set in vertices
+        else:
+            self.vertices[v1].add(v2)
+            # add v1 to the v2 set in vertices in order to make the edge bidirectional
+            self.vertices[v2].add(v1)
 
     def get_neighbors(self, vertex_id):
         """
