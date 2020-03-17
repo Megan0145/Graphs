@@ -139,6 +139,8 @@ class Graph:
                     next_path.append(adj_vert)
                     # add the new path to the queue
                     q.enqueue(next_path)
+        # return None if destination_vertex not found
+        return None
 
     def dfs(self, starting_vertex, destination_vertex):
         """
