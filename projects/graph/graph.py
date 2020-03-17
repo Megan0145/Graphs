@@ -174,6 +174,7 @@ class Graph:
                     next_path.append(adj_vert)
                     # add the new path to the stack
                     s.push(next_path)
+        return None
 
     def dfs_recursive(self, starting_vertex, destination_vertex, visited = None):
         """
