@@ -16,11 +16,7 @@ class SocialGraph:
         """
         Creates a bi-directional friendship
         """
-        if user_id == friend_id:
-            # print("WARNING: You cannot be friends with yourself")
-            return False
-        elif friend_id in self.friendships[user_id] or user_id in self.friendships[friend_id]:
-            # print("WARNING: Friendship already exists")
+        if user_id == friend_id or (friend_id in self.friendships[user_id] or user_id in self.friendships[friend_id]):
             return False
         else:
             self.friendships[user_id].add(friend_id)
