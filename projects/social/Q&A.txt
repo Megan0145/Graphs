@@ -1,0 +1,15 @@
+QUESTION ONE:
+To create 100 users with an average of 10 friends each, how many times would you need to call add_friendship()? Why?
+
+add_friendship() would be called 500 times. 
+We are using a formula to generate the number of friendships that should be generated when populating the graph with users and frienships. 
+The number of friendships to be generated will be the result of:
+        number of users * average number of friendships per user // 2
+Which in this case is:
+        100 * 10 // 2
+        = 500        
+
+
+QUESTION TWO:
+If you create 1000 users with an average of 5 random friends each, what percentage of other users will be in a particular user's extended 
+social network? What is the average degree of separation between a user and those in his/her extended network?
