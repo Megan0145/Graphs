@@ -3,7 +3,8 @@ class Graph:
         self.vertices = {}
 
     def add_vertex(self, vertex_id):
-        self.vertices[vertex_id] = set()
+        if vertex_id not in self.vertices:
+            self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
         if v1 not in self.vertices or v2 not in self.vertices:
@@ -38,13 +39,13 @@ def earliest_ancestor(ancestors, starting_node):
         # add value in tuple at current index as vertex in graph
         g.add_vertex(v)
         # add edges between appropriate vertices in graph by passing the key of tuple at current index as vertex1 and value as vertex2 
-        g.add_edge(k, v)
+        g.add_edge(v, k)
 
     # use BFT to traverse graph from starting node and find the earliest ancestor ->
     # initalize queue
     q = Queue()
     # enqueue a list containing the starting node
-    q.enqueue( [starting_node] )
+    q.enqueue([starting_node])
     # set a max path length to 1
     max_path_length = 1
     # set an initial earliest ancestor 
