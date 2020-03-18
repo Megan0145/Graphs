@@ -14,6 +14,26 @@ Which in this case is:
 If you create 1000 users with an average of 5 random friends each, what percentage of other users will be in a particular user's extended 
 social network? What is the average degree of separation between a user and those in his/her extended network?
 
+# A: Percentage of other users in a particular user's extended social network:
+```python
+    # instantiate the graph
+    sg = SocialGraph()
+    # populate it with 1000 users with an average of 5 friendships per user
+    sg.populate_graph(1000, 5)
+    # generate a random user id between 0 and 1000 (total number of users)
+    rnd_user_id = random.randint(0, 1000)
+    # get the social paths for all connections in the random user's extended social network
+    connections = sg.get_all_social_paths(rnd_user_id)
+    # save the number of people in the random user's extended social network to variable
+    # this can be calculated by getting the length of the connections dictionary that holds all social paths for that user and minusing 1 (we dont want to include that user themselves)
+    num_friends = len(connections) - 1
+    # the percentage of other users in the user's network can be obtained by dividing num_friends by the total number of users (1000 in this case) and multiplying by 100
+    percentage_users_in_network = num_friends/1000 * 100
+    print(f"Percentage of other users in user's network: {percentage_users_in_network}%")
+```
+The above code produces 99.2% as the average percentage of other users in a user's network for a social network of 1000 users with an average of 5 friendships per user.
+
+# B: Degree of Seperation:
 The average degree of separation between a user and those in his/her extended network can be obtained by iterating over the connections in 
 their extended social network. This is a dictionary with the id of the friend as the key and a list containing the shortest path to that friend within
 the graph. For example:
