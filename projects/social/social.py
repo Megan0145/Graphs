@@ -10,6 +10,7 @@ class SocialGraph:
         self.last_id = 0
         self.users = {}
         self.friendships = {}
+        self.count = 0
 
     def add_friendship(self, user_id, friend_id):
         """
@@ -45,6 +46,7 @@ class SocialGraph:
         self.last_id = 0
         self.users = {}
         self.friendships = {}
+        self.count = 0
         # !!!! IMPLEMENT ME
 
         # Add users
@@ -74,6 +76,7 @@ class SocialGraph:
         for i in range(num_friendships_to_gen):
             # add friendship for tuple at current index of possible_friendship_combos
             self.add_friendship(possible_friendship_combos[i][0], possible_friendship_combos[i][1])
+            self.count += 1
 
 
     def get_all_social_paths(self, user_id):
@@ -116,7 +119,8 @@ class SocialGraph:
 
 if __name__ == '__main__':
     sg = SocialGraph()
-    sg.populate_graph(10, 2)
+    sg.populate_graph(100, 10)
     print(sg.friendships)
+    print(f'Number of times call to add_friendship function made: {sg.count}')
     connections = sg.get_all_social_paths(1)
     print(connections)
