@@ -119,8 +119,12 @@ class SocialGraph:
 
 if __name__ == '__main__':
     sg = SocialGraph()
-    sg.populate_graph(100, 10)
-    print(sg.friendships)
-    print(f'Number of times call to add_friendship function made: {sg.count}')
-    connections = sg.get_all_social_paths(1)
-    print(connections)
+    sg.populate_graph(1000, 5)
+    rnd_user_id = random.randint(0, 1000)
+    connections = sg.get_all_social_paths(rnd_user_id)
+    avg_deg_of_sep = 0
+    for friend_id in connections:
+        if friend_id != rnd_user_id:
+            avg_deg_of_sep += (len(connections[friend_id]) - 1)
+    avg_deg_of_sep = avg_deg_of_sep // (len(connections) - 1)        
+    print(avg_deg_of_sep)
