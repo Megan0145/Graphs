@@ -57,7 +57,7 @@ def earliest_ancestor(ancestors, starting_node):
         path = q.dequeue()
         # set vert equal to the id of the last vert in the path list
         vert = path[-1]
-        # if the length of the path longer/equal to the max_path length and the verte is less than the current value of earliest_ancestor
+        # if the length of the path longer/equal to the max_path length and the vertex is less than the current value of earliest_ancestor
         # OR the length of the current path is more than the max_path_length
         if (len(path) >= max_path_length and vert < earliest_ancestor) or (len(path) > max_path_length):
             # set the earliest_ancestor equal to the vertex
