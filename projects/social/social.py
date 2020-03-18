@@ -1,4 +1,5 @@
 import random
+from util import Queue
 
 class User:
     def __init__(self, name):
@@ -74,7 +75,7 @@ class SocialGraph:
             # add friendship for tuple at current index of possible_friendship_combos
             self.add_friendship(possible_friendship_combos[i][0], possible_friendship_combos[i][1])
 
-            
+
     def get_all_social_paths(self, user_id):
         """
         Takes a user's user_id as an argument
@@ -86,6 +87,30 @@ class SocialGraph:
         """
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
+
+        # instantiate new queue
+        q = Queue()
+        # add path list containing user_id to queue (starting node)
+        q.enqueue([user_id])
+        # while the queue is not empty..
+        while q.size() > 0:
+            # dequeue the path at the top of the queue
+            path = q.dequeue()
+            # the next user id to visit will be the last element in the path list at the top of the queue
+            next_user_id = path[-1]
+            # if the next_user_id has not been visited...
+            if next_user_id not in visited:
+                # add it to visited set with the user_id as the key and the path as the value
+                visited[next_user_id] = path
+                # if friends of next_user_id have not been visited..
+                for friend_id in self.friendships[next_user_id]:
+                    if friend_id not in visited:
+                        # copy contents of current path to new list
+                        new_path = list(path)
+                        # append the id of the friend
+                        new_path.append(friend_id)
+                        # add it to the queue
+                        q.enqueue(new_path)
         return visited
 
 
