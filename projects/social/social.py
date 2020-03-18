@@ -82,20 +82,31 @@ class SocialGraph:
         self.last_id = 0
         self.users = {}
         self.friendships = {}
- 
+
+        # 1: add users 
+        # loop in range num users to add..
         for i in range(num_users):
+            # add user
             self.add_user(f'User {i}')
 
+        # get the number of frienships to generate and save to variable
         num_friendships_to_gen = num_users * avg_friendships // 2
+        # declare variable to hold the number of friendships that currently exist in social graph, initialize to 0
         curr_num_friendships = 0
-
+        # loop while the number of friendships is less than the number of friendships to generate..
         while curr_num_friendships < num_friendships_to_gen:
+            # generate a random user id from 1 to the id of the last user added
             user_id = random.randint(1, self.last_id)
+            # generate a random friend id from 1 to the id of the last user added
             friend_id = random.randint(1, self.last_id)
-            add_friends = self.add_friendship(user_id, friend_id)
-            if add_friends is True:    
+            # try to add the friendship between the two users, 
+            # save the result in add_friend_success variable (add_friendship method returns True if successful, else False)
+            add_friend_success = self.add_friendship(user_id, friend_id)
+            # if adding the friendship was succesful..
+            if add_friend_success is True:
+                # increment the current number of friendships in the graph
                 curr_num_friendships += 1
-               
+                print(f'Current number of friendships: {curr_num_friendships}. Total num of friendships to generate: {num_friendships_to_gen}')            
 
     def get_all_social_paths(self, user_id):
         """
