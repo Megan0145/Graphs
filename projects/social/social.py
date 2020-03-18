@@ -17,12 +17,15 @@ class SocialGraph:
         Creates a bi-directional friendship
         """
         if user_id == friend_id:
-            print("WARNING: You cannot be friends with yourself")
+            # print("WARNING: You cannot be friends with yourself")
+            return False
         elif friend_id in self.friendships[user_id] or user_id in self.friendships[friend_id]:
-            print("WARNING: Friendship already exists")
+            # print("WARNING: Friendship already exists")
+            return False
         else:
             self.friendships[user_id].add(friend_id)
             self.friendships[friend_id].add(user_id)
+            return True
 
     def add_user(self, name):
         """
@@ -78,6 +81,25 @@ class SocialGraph:
             self.add_friendship(possible_friendship_combos[i][0], possible_friendship_combos[i][1])
             self.count += 1
 
+    def optimised_populate_graph(self, num_users, avg_friendships):
+        # Reset graph
+        self.last_id = 0
+        self.users = {}
+        self.friendships = {}
+ 
+        for i in range(num_users):
+            self.add_user(f'User {i}')
+
+        num_friendships_to_gen = num_users * avg_friendships // 2
+        curr_num_friendships = 0
+
+        while curr_num_friendships < num_friendships_to_gen:
+            user_id = random.randint(1, self.last_id)
+            friend_id = random.randint(1, self.last_id)
+            add_friends = self.add_friendship(user_id, friend_id)
+            if add_friends is True:    
+                curr_num_friendships += 1
+               
 
     def get_all_social_paths(self, user_id):
         """
@@ -118,31 +140,6 @@ class SocialGraph:
 
 
 if __name__ == '__main__':
-    # CALCULATE PERCENTAGE OF OTHER USERS IN A PARTICULAR USER'S NETWORK:
-
-    # instantiate the graph
     sg = SocialGraph()
-    # populate it with 1000 users with an average of 5 friendships per user
-    sg.populate_graph(1000, 5)
-    # generate a random user id between 0 and 1000 (total number of users)
-    rnd_user_id = random.randint(0, 1000)
-    # get the social paths for all connections in the random user's extended social network
-    connections = sg.get_all_social_paths(rnd_user_id)
-    # save the number of people in the random user's extended social network to variable
-    # this can be calculated by getting the length of the connections dictionary that holds all social paths for that user and minusing 1 (we dont want to include that user themselves)
-    num_friends = len(connections) - 1
-    # the percentage of other users in the user's network can be obtained by dividing num_friends by the total number of users (1000 in this case) and multiplying by 100
-    percentage_users_in_network = num_friends/1000 * 100
-    print(f"Percentage of other users in user's network: {percentage_users_in_network}%")
-
-    # # CALCULATE THE DEGREE OF SEPERATION:
-    # sg = SocialGraph()
-    # sg.populate_graph(1000, 5)
-    # rnd_user_id = random.randint(0, 1000)
-    # connections = sg.get_all_social_paths(rnd_user_id)
-    # avg_deg_of_sep = 0
-    # for friend_id in connections:
-    #     if friend_id != rnd_user_id:
-    #         avg_deg_of_sep += (len(connections[friend_id]) - 1)
-    # avg_deg_of_sep = avg_deg_of_sep // (len(connections) - 1)        
-    # print(avg_deg_of_sep)
+    sg.optimised_populate_graph(10,2)
+    print(sg.friendships)
