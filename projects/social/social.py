@@ -1,5 +1,6 @@
 import random
 from util import Queue
+import time
 
 class User:
     def __init__(self, name):
@@ -105,8 +106,7 @@ class SocialGraph:
             # if adding the friendship was succesful..
             if add_friend_success is True:
                 # increment the current number of friendships in the graph
-                curr_num_friendships += 1
-                print(f'Current number of friendships: {curr_num_friendships}. Total num of friendships to generate: {num_friendships_to_gen}')            
+                curr_num_friendships += 1        
 
     def get_all_social_paths(self, user_id):
         """
@@ -148,5 +148,21 @@ class SocialGraph:
 
 if __name__ == '__main__':
     sg = SocialGraph()
+
+    # calculate num seconds to populate graph using original solution:
+    original_start = time.time()
+    sg.populate_graph(1000,5)
+    original_end = time.time()
+    original_num_secs = original_end - original_start
+
+    # calculate num seconds to populate graph using optimised solution:
+    optimised_start = time.time()
     sg.optimised_populate_graph(10,2)
-    print(sg.friendships)
+    optimised_end = time.time()
+    optimised_num_secs = optimised_end - optimised_start
+
+    # get the faster value:
+    if optimised_num_secs < original_num_secs:
+        print(f'Optimised solution is faster. Takes {optimised_num_secs} seconds.')
+    else:
+        print(f'Original solution is faster. Takes {original_num_secs} seconds.')
