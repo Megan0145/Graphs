@@ -157,7 +157,7 @@ if __name__ == '__main__':
 
     # calculate num seconds to populate graph using optimised solution:
     optimised_start = time.time()
-    sg.optimised_populate_graph(10,2)
+    sg.optimised_populate_graph(1000,5)
     optimised_end = time.time()
     optimised_num_secs = optimised_end - optimised_start
 
